@@ -245,7 +245,7 @@ setTimeout(()=>{
                  skuNumber: 3106380019,
                  idCompanyMudi: 403,
                  color: '#cf2928',
-                 containerBtns: document.querySelector('.ui-pdp-gallery'),
+                 containerBtns: document.querySelector('.easyzoom'),
                  zIndexModal: 10000000000,
                }); 
 },3000)
