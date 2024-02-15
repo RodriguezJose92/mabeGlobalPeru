@@ -240,6 +240,7 @@ async function serverData({
 
 
 setTimeout(()=>{
+window.location.href=='https://mabeglobal.com/es_PE/Refrigeracion/Refrigeraci%C3%B3n-Avanzada-en-Per%C3%BA/Congelador-Horizontal-198-L-Netos-Blanco-Mabe---CHM200PB3/p/CHM200PB3' && 
     MudiExperience({
                  tokenApi: 'FuPsXyB2khe9WF2EUBs7',
                  skuNumber: 3106380019,
