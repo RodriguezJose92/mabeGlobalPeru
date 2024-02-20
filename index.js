@@ -44,7 +44,7 @@ async function serverData({
     const containerPrincipalBtns = document.createElement('DIV');
     containerPrincipalBtns.classList.add('ContainerBtnsMudi');
     containerPrincipalBtns.id = "containerBtnsMudi";
-    containerPrincipalBtns.setAttribute('style', `z-index:${zBtns}; ${ButtonsY}:0`);
+    containerPrincipalBtns.setAttribute('style', `z-index:10000000000000000000000000000000; ${ButtonsY}:0`);
   
     containerPrincipalBtns.innerHTML = `
       <div class="tooltip showTooltipInit">
@@ -240,7 +240,7 @@ async function serverData({
 
 
 setTimeout(()=>{
-window.location.href=='https://mabeglobal.com/es_PE/Refrigeracion/Refrigeraci%C3%B3n-Avanzada-en-Per%C3%BA/Congelador-Horizontal-198-L-Netos-Blanco-Mabe---CHM200PB3/p/CHM200PB3' && 
+window.location.href.includes('https://mabeglobal.com/es_PE/Refrigeracion/Refrigeraci%C3%B3n-Avanzada') && 
     MudiExperience({
                  tokenApi: 'FuPsXyB2khe9WF2EUBs7',
                  skuNumber: 3106380019,
