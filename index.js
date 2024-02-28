@@ -1,252 +1,178 @@
-/* Petición SeverMudi */
-async function serverData({
-    token = undefined,
-    sku = undefined
-  }) {
-  
-    // Errores
-    if (token == null) { console.error('Error Mudi: Token Api Null'); return }
-    if (sku == null) { console.error('Error Mudi: SKU Null'); return }
-  
-    // Respuesta positiva 
-    let contentBody = { "skus": [`${sku}`] }
-  
-    const req = await fetch('https://mudiview.mudi.com.co:7443/product/getProductsUrl', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'tokenapi': token
-      },
-      body: JSON.stringify(contentBody)
-    })
-  
-    const jsonResponse = await req.json();
-    const finalResponse = jsonResponse.data[0];
-  
-    return finalResponse;
-  
-  };
-  
-  /** Creamos Los estilos remotos */
-  function createStyles() {
+/** Server response */
+let dataServerMudi;
+
+async function conectServer(skuNumber){
+
+    const myBody = {
+        "skus":[skuNumber]
+    };
+
+    try {
+
+        /** We make the request to the MUDI server */
+        const 
+        request = await fetch('https://mudiview.mudi.com.co:7443/product/getProductsUrl',{
+            method:'POST',
+            headers:{   "Content-type":"application/json",
+                        "tokenapi":"fUJzZmH4AteszjZEnYG7"
+            },
+            body: JSON.stringify(myBody)
+        })
+        const 
+        response = await request.json();
+        dataServer=response.data[0];   
+
+    } catch (error) {console.error(`Mudi Error:\n${error}`)}
+    
+    return dataServer;
+};
+
+function createStyles(){
     const link = document.createElement('LINK');
-    link.setAttribute('rel', 'stylesheet');
-    link.id = "stylesMudiGeneral";
-    link.href = `https://cdn.jsdelivr.net/gh/RodriguezJose92/grupoMansion@latest/index.css`;  /*Pueden tomarlos de esta ruta */
-  
+    link.setAttribute('rel','stylesheet');
+    link.id="stylesMudiGeneral";
+    link.href=`https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/index.css`; /* Pueden tomarlos de esta ruta */
+   
     document.head.appendChild(link)
-  };
-  
-  /** Cuando se obtiene una respuesta positiva del server se crean dos botones ( btn3D y btnAR ) */
-  function createBtns({ father, sku, idCompany, link3D, color, zBtns, zModal, ButtonsY }) {
-  
-    // Creación del contenedor principal para los botones
-    const containerPrincipalBtns = document.createElement('DIV');
-    containerPrincipalBtns.classList.add('ContainerBtnsMudi');
-    containerPrincipalBtns.id = "containerBtnsMudi";
-    containerPrincipalBtns.setAttribute('style', `z-index:10000000000000000000000000000000; ${ButtonsY}:0`);
-  
-    containerPrincipalBtns.innerHTML = `
-      <div class="tooltip showTooltipInit">
-        <p><b>¡Nuevo!</b> prueba nuestras experiencias de 3D y Realidad Aumentada</p>
-      </div>
-      <img src="https://mabeglobal.com/medias/vertuespaciomudi.png?context=bWFzdGVyfGltYWdlc3w0MzI3NnxpbWFnZS9wbmd8YUdRMUwyZzJOeTh4TURRNE16WXdOekEzTmpnNU5DOTJaWEowZFdWemNHRmphVzl0ZFdScExuQnVad3wwOTBlNDFmNDIwMzFkMmQ2MmFlMmQ2ZTU0YmU3Nzc1MTYxNjdiNDU2YTVmNjQwY2IzZDhkZThiMGMwZWZjMjZh" alt="Boton Mudi para activar 3D" class="btnMudi3D" id="btnMudi3D" sku=${sku} title="Haz click para tener una experiencia 3D">
-      <img src="https://mabeglobal.com/medias/vertuespaciomudi.png?context=bWFzdGVyfGltYWdlc3w0MzI3NnxpbWFnZS9wbmd8YUdRMUwyZzJOeTh4TURRNE16WXdOekEzTmpnNU5DOTJaWEowZFdWemNHRmphVzl0ZFdScExuQnVad3wwOTBlNDFmNDIwMzFkMmQ2MmFlMmQ2ZTU0YmU3Nzc1MTYxNjdiNDU2YTVmNjQwY2IzZDhkZThiMGMwZWZjMjZh" alt="Boton Mudi para activar AR" class="btnMudiAR" id="btnMudiAR" sku=${sku} title="Haz click para tener una experiencia de realidad aumentada">`;
-  
-    containerPrincipalBtns.querySelector('.btnMudi3D').addEventListener('click', () => { createModal3D({ link3D: link3D, color: color, zModal: zModal }) }, false);
-    containerPrincipalBtns.querySelector('.btnMudiAR').addEventListener('click', () => { createModalAR({ color: color, idCompany: idCompany, sku: sku, zModal: zModal }) }, false);
-  
-    father.appendChild(containerPrincipalBtns);
-  
-    setTimeout(() => {
-      const tool = document.querySelector('.showTooltipInit');
-      tool.classList.remove('showTooltipInit');
-      tool.classList.add('hideTooltip');
-    }, 10000);
-  
-  };
-  
-  /** Creamos el modal 3D */
-  function createModal3D({ link3D, color, zModal }) {
-  
-    const div = document.createElement('DIV')
-    div.classList.add('modalMudi')
-    div.id = "modalMudi";
-    div.setAttribute('style', `z-index:${zModal}`);
-    div.innerHTML = `
-      <div class="contentModal3D">
-        <h1 class="closeModal" style="color:${color}; text-align:end">X</h1>
-        <iframe class="iframeMudi3D" src="${link3D}"></iframe>
-        <a href="https://mudi.com.co" target="_blank">
-          <img class="powerByMudi3D" src="https://mudi.com.co/Assets/SVG/powerByMudi.webp" type="image/webp" alt="Power By Mudi">
-        </a>
-      </div>`;
-  
-    div.querySelector('.closeModal').addEventListener('click', () => {
-      document.body.querySelector('.modalMudi').remove();
-    })
-  
-    document.body.appendChild(div);
-  };
-  
-  /** Creamos el Modal AR */
-  function createModalAR({ color, idCompany, sku, zModal }) {
-    const div = document.createElement('DIV')
-    div.classList.add('modalMudi')
-    div.id = "modalMudi";
-    div.setAttribute('style', `z-index:${zModal}`);
-    div.innerHTML = `
-        <div class="contentModalAR">
-            <h1 class="closeModal" style="color:${color}; text-align:end;">X</h1>
-            <h2 class="modalTitleMudi">Recomendaciones para ver el producto en Realidad Aumentada.</h2>
+};
+
+function createButon(father){
+
+    /** We create a container for the 3D button */
+    const 
+    container       = document.createElement('DIV');
+    container.id    =`containerBtnsMudi`;
+    container.classList.add(`ContainerBtnsMudi`);
+
+        /* We create an informative poster */
+        const 
+        tooltip     = document.createElement('P');
+        tooltip.id  = `tooltipMudi` ;
+        tooltip.classList.add(`mudiTooltip`);
+        tooltip.innerHTML=`<p class="paragraphMudi"><b class="newMudi">¡Nuevo!</b> Descubre como se ve este producto en <b>3D y realidad aumentada</b> en tu espacio</p>`;
     
-            <div class="principalContentModalAR">
-    
-                <div class="fristContentMudi">
-    
-                    <div class="containerMudiSteps">
-                        <img class="imgStepMudi" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/grupoMansion@latest/assets/step1.webp">
-                        <div class="containerStepsText">
-                            <h3 class="stepTitleMudi">Apunta tu teléfono al piso para ver el producto.</h3>
-                            <p class="stepParagrahpMudi">Prueba otro espacio si no puedes ver el producto.</p>
-                        </div>
-                    </div>
-    
-                    <div class="containerMudiSteps">
-                        <img class="imgStepMudi" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/grupoMansion@latest/assets/step2.webp">
-                        <div class="containerStepsText">
-                            <h3 class="stepTitleMudi">Desplaza para visualizar.</h3>
-                            <p class="stepParagrahpMudi">Mueve tu dedo en la pantalla para rotar la imagen.</p>
-                        </div>
-                    </div>
-    
-                    <div class="containerMudiSteps">
-                        <img class="imgStepMudi" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/grupoMansion@latest/assets/step3.webp">
-                        <div class="containerStepsText">
-                            <h3 class="stepTitleMudi">Amplia y detalla el producto.</h3>
-                            <p class="stepParagrahpMudi">Controla el zoom arrastrando dos dedos en la pantalla de adentro hacia afuera.</p>
-                        </div>
-                    </div>
-    
-                    <div class="containerMudiSteps">
-                        <img class="imgStepMudi" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/grupoMansion@latest/assets/step4.webp">
-                        <div class="containerStepsText">
-                            <h3 class="stepTitleMudi">Toca dos veces para restablecer.</h3>
-                            <p class="stepParagrahpMudi">Vuelve al tamaño original haciendo doble click sobre el producto.</p>
-                        </div>
-                    </div>
-    
-                    <button class="initARMudi" style="background-color:${color};">Iniciar AR</button>
-    
-                </div>
-    
-                <div class="secondContentMudi">
-                    <h3 class="stepTitleMudi qrTitlePart"> Escanea el código QR para ver el producto en realidad aumentada.</h3>
-                    <div class="containerQRMudi">
-                      <img src="https://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=https%3A%2F%2Fviewer.mudi.com.co%2Fv1%2Far%2F%3Fid%3D${idCompany}%26sku%3D${sku}" class="codeQRMudi">
-                    </div>
-                    <a class="hrefMudiAR" href="https://mudi.com.co" target="_blank">
-                      <img class="powerByMudiAR" src="https://mudi.com.co/Assets/SVG/powerByMudi.webp" type="image/webp" alt="Power By Mudi">
-                    </a>
-                </div>
-    
+        /** The 3D botton is an image */
+        const 
+        button3D    = document.createElement('IMG');
+        button3D.id = `btn3DProdId`;
+        button3D.src= `https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btn3D.png`;
+        button3D.classList.add(`btnMudi3D`);
+        button3D.addEventListener('click',createModal,false)
+
+    /** Add tooltip and 3D buttton to "container" */
+    container.appendChild(tooltip);
+    container.appendChild(button3D);
+
+    /** Add container to DOM */
+    if(window.innerWidth>1000)father[0].appendChild(container);
+    else  father[1].appendChild(container);
+
+};
+
+function createModal(){
+
+    /** We create a shell for the MUDI modal */
+    const 
+    modalMudi = document.createElement('DIV');
+    modalMudi.id=`modalMudi`;
+    modalMudi.classList.add(`mudiModal`);
+    modalMudi.innerHTML=`
+        <div class="iframeMudi3D">
+            <button class="closeModalMudi">X</button>
+            <iframe class="modelMudi" src="${dataServer.URL_WEB}"></iframe>
+            <img id='btnVerEnMiEspacioId' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btnAR.png"/>
+        </div>
+    `;
+
+    /** We close the MUDI modal*/
+    modalMudi.querySelector(`.closeModalMudi`).addEventListener('click',()=>{
+        document.body.querySelector('#modalMudi').remove();
+    });
+
+    /** Init ARExperience */
+    modalMudi.querySelector(`#btnVerEnMiEspacioId`).addEventListener('click',()=>{
+        if(window.innerWidth>1000) initARDESK();
+        else window.open(`${dataServer.URL_AR}`,"_BLANK")
+    });
+
+    document.body.appendChild(modalMudi)
+
+};
+
+function initARDESK(){
+
+    if(document.body.querySelector('#containerQR')) {
+        document.body.querySelector('#containerQR').remove();
+        return
+    };
+
+    const 
+    modalMudi = document.createElement('DIV');
+    modalMudi.id=`containerQR`;
+    modalMudi.classList.add(`containerQRMudi`);
+    modalMudi.innerHTML=`
+        <img class="mudiQR" src="${dataServer.URL_QR}" >
+
+        <div class="containerText">
+            <div class="titleContainer">
+                <h4>ESCANÉAME PARA <br><b>VER EN TU ESPACIO</b></h4>
+                <hr class="hrTitle">
             </div>
+
+            <div class="titleContainer">
+                <div class="iconTitle">
+                    <img class="stepMudi step1" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/step1Mabe.webp">
+                </div>
+                <p class="textInfoMudi">Apunta el teléfono al piso.</p>
+            </div>
+
+            <div class="titleContainer">
+                <div class="iconTitle">
+                    <img class="stepMudi step2" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/step2Mabe.webp">
+                </div>
+                <p class="textInfoMudi">Desplaza para visualizar.</p>
+            </div>
+
+            <div class="titleContainer">
+                <div class="iconTitle">
+                    <img class="stepMudi step3" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/step3Mabe.webp">
+                </div>
+                <p class="textInfoMudi">Amplia y detalla el producto.</p>
+            </div>
+
+            <div class="titleContainer">
+                <div class="iconTitle">
+                    <img class="stepMudi step4" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/step4Mabe.webp">
+                </div>
+                <p class="textInfoMudi">Toca dos veces para restablecer.</p>
+            </div>
+
+        </div>
+
+    `;
+
+    document.body.querySelector('.iframeMudi3D').appendChild(modalMudi)
+};
+
+async function mudiExperience({skuNumber,fatherContainer}){
+
+    const 
+    dataServer = await conectServer(skuNumber);
+    console.log(dataServer)
     
-        </div>`;
-  
-    div.querySelector('.closeModal').addEventListener('click', () => {
-      document.body.querySelector('.modalMudi').remove();
-    });
-  
-    div.querySelector('.initARMudi').addEventListener('click', () => {
-      window.open(`https://viewer.mudi.com.co/v1/ar/?id=${idCompany}&sku=${sku}`)
-    })
-  
-    document.body.appendChild(div);
-  };
-  
-  /**Envío de data DataLayer */
-  function sendDataLayer({ sku }) {
-  
-    let OSdevice;
-  
-    if (navigator.userAgent.includes('Android')) OSdevice = 'Android';
-    else if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) OSdevice = "IOS";
-    else OSdevice = 'DESK';
-  
-    /** Evento de visualización */
-    dataLayer.push({
-      event: 'Evento de visualización Mudi',
-      valorMudi: 1,
-      sku: sku,
-      sistemaOperativo: OSdevice
-    });
-  
-    /** Evento de intención de compra */
-    document.querySelector('[data-button-action="add-to-cart"]').addEventListener('click', () => {
-      dataLayer.push({
-        event: 'Evento de intención de compra Mudi',
-        valorMudi: 1,
-        sku: sku,
-        sistemaOperativo: OSdevice
-      })
-    }, false);
-  
-  
-    /** Evento de interación AR Mudi */
-    document.getElementById('btnMudiAR').addEventListener('click', () => {
-      dataLayer.push({
-        event: 'Evento de interacción AR Mudi',
-        valorMudi: 1,
-        sku: sku,
-        sistemaOperativo: OSdevice
-      })
-    }, false);
-  
-    /** Evento de interación 3D Mudi */
-    document.getElementById('btnMudi3D').addEventListener('click', () => {
-      dataLayer.push({
-        event: 'Evento de interacción 3D Mudi',
-        valorMudi: 1,
-        sku: sku,
-        sistemaOperativo: OSdevice
-      })
-    }, false);
-  
-  };
-  
-  // Función Main Mudi --
-  async function MudiExperience({
-    tokenApi,
-    skuNumber,
-    containerBtns,
-    idCompanyMudi,
-    color,
-  
-    zIndexBtns = 1,
-    zIndexModal = 1,
-  
-    positionBtnsY = 'bottom',
-  }) {
-  
-    const server = await serverData({ token: tokenApi, sku: skuNumber });
-    if (server == undefined) { console.warn(`El producto identificado con el SKU: "%c${skuNumber}%c" en Mudi 3D&AR Commerce, no tiene 3D ni AR`, 'color: red; font-weight: bold', 'color: black;'); return };
-  
-    /** Una vez tengamos la respuesta positiva creamos los estilos generales y los botones */
-    createStyles({ idCompany: idCompanyMudi });
-    createBtns({ father: containerBtns, sku: skuNumber, idCompany: idCompanyMudi, link3D: server.URL_WEB, color: color, zBtns: zIndexBtns, zModal: zIndexModal, ButtonsY: positionBtnsY });
-    sendDataLayer({ sku: skuNumber })
-  };
+    if(!dataServer){
+        console.warn(`El SKU ${skuNumber} No posee experiencias de 3D y realidad aumentada`)
+        return;
+    };
 
+    createStyles();
+    createButon( fatherContainer ); 
+};
 
-setTimeout(()=>{
-window.location.href.includes('https://mabeglobal.com/es_PE/Refrigeracion/Refrigeraci%C3%B3n-Avanzada') && 
-    MudiExperience({
-                 tokenApi: 'FuPsXyB2khe9WF2EUBs7',
-                 skuNumber: 3106380019,
-                 idCompanyMudi: 403,
-                 color: '#cf2928',
-                 containerBtns: document.querySelector('.easyzoom'),
-                 zIndexModal: 10000000000,
-               }); 
-},3000)
+const verify = new URLSearchParams(window.location.search).get('muditest')
+
+verify && mudiExperience({
+    skuNumber:"WEM7643CSIS0_MabeMex",
+    fatherContainer: document.body.querySelectorAll(`.image-gallery`)
+});
+
