@@ -220,10 +220,21 @@
         width: 90%;
     }
 
-    .btnMudiAR {
+    .containerBtnsActions {
         position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         top: 5%;
-        bottom: 0% !important;
+        gap: 10%;
+    }
+
+    .btnMudiAR {
+        width: 40%;
+    }
+
+    .external_drive {
         width: 40%;
     }
 }
