@@ -54,7 +54,7 @@ function createButon(father){
         /** The 3D botton is an image */
         const 
         button3D    = document.createElement('IMG');
-        button3D.id = `btn3DProdId`;
+        button3D.id = `btnMudi3D`;
         button3D.src= `https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btn3D.png`;
         button3D.classList.add(`btnMudi3D`);
         button3D.addEventListener('click',createModal,false)
@@ -80,7 +80,7 @@ function createModal(){
         <div class="iframeMudi3D">
             <button class="closeModalMudi">X</button>
             <iframe class="modelMudi" src="${dataServer.URL_WEB}"></iframe>
-            <img id='btnVerEnMiEspacioId' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btnAR.png"/>
+            <img id='btnMudiAR' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btnAR.png"/>
         </div>
     `;
 
@@ -90,7 +90,7 @@ function createModal(){
     });
 
     /** Init ARExperience */
-    modalMudi.querySelector(`#btnVerEnMiEspacioId`).addEventListener('click',()=>{
+    modalMudi.querySelector(`#btnMudiAR`).addEventListener('click',()=>{
         if(window.innerWidth>1000) initARDESK();
         else window.open(`${dataServer.URL_AR}`,"_BLANK")
     });
