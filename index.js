@@ -31,7 +31,7 @@ function createStyles(){
     const link = document.createElement('LINK');
     link.setAttribute('rel','stylesheet');
     link.id="stylesMudiGeneral";
-    link.href=`./index.css`; /* Pueden tomarlos de esta ruta */
+    link.href=`https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/index.css`; /* Pueden tomarlos de esta ruta */
    
     document.head.appendChild(link)
 };
@@ -218,8 +218,7 @@ async function mudiExperience({skuNumber,fatherContainer}){
 };
 
 mudiExperience({
-    // skuNumber:document.body.querySelector('.code').innerHTML+"_MabePeru",
-    skuNumber:"MMT12CDBWCCC8_MabePeru",
+    skuNumber:document.body.querySelector('.code').innerHTML+"_MabePeru",
     fatherContainer: document.body.querySelectorAll(`.image-gallery`)
 });
 
