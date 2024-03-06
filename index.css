@@ -100,20 +100,20 @@
     position: absolute;
     top: 1%;
     right: 0%;
-    width: 100%;
+    width: 210px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    align-self: center;
+    align-items: center;
+    gap: 30px;
 }
 
 .btnMudiAR {
-    width: 200px;
+    width: 100%;
 }
 
 .external_drive {
-    width: 190px;
+    width: 100%;
 }
 
 .containerQRMudi {
@@ -222,20 +222,22 @@
 
     .containerBtnsActions {
         position: absolute;
-        width: 100%;
+        width: 40%;
+        flex-direction: column;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        top: 5%;
+        top: 7%;
         gap: 10%;
+        right: 2%;
     }
 
     .btnMudiAR {
-        width: 40%;
+        width: 100%;
     }
 
     .external_drive {
-        width: 40%;
+        width: 100%;
     }
 }
 

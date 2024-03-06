@@ -81,7 +81,7 @@ function createModal(skuNumber){
             <button class="closeModalMudi">X</button>
             <iframe class="modelMudi" src="${dataServer.URL_WEB}"></iframe>
             <div class="containerBtnsActions">
-                <img id='btnMudiAR' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn.webp"/>
+                <img id='btnMudiAR' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn.png"/>
             </div>
         </div>
     `;
