@@ -118,9 +118,9 @@
 
 .containerQRMudi {
     position: absolute;
-    top: 46px;
+    top: 0;
     transform: scale(0.8);
-    right: -3px;
+    left: -3px;
     display: flex;
     flex-direction: column;
     background-color: #007297;
@@ -181,9 +181,9 @@
 
     .containerQRMudi {
         position: absolute;
-        top: -10px;
+        top: 0;
         transform: scale(0.7);
-        right: -40px;
+        left: -3px;
         display: flex;
         flex-direction: column;
         background-color: #007297;
@@ -200,9 +200,9 @@
 
     .containerQRMudi {
         position: absolute;
-        top: -55px;
+        top: 0;
         transform: scale(0.6);
-        right: -50px;
+        left: -3px;
         display: flex;
         flex-direction: column;
         background-color: #007297;
