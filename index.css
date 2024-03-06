@@ -98,14 +98,14 @@
 
 .containerBtnsActions {
     position: absolute;
-    top: 1%;
-    right: 0%;
+    top: 5.5%;
+    right: 1%;
     width: 210px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 4px;
 }
 
 .btnMudiAR {
