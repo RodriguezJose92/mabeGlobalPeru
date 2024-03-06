@@ -31,12 +31,12 @@ function createStyles(){
     const link = document.createElement('LINK');
     link.setAttribute('rel','stylesheet');
     link.id="stylesMudiGeneral";
-    link.href=`https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/index.css`; /* Pueden tomarlos de esta ruta */
+    link.href=`./index.css`; /* Pueden tomarlos de esta ruta */
    
     document.head.appendChild(link)
 };
 
-function createButon(father){
+function createButon(father,skuNumber){
 
     /** We create a container for the 3D button */
     const 
@@ -57,7 +57,7 @@ function createButon(father){
         button3D.id = `btnMudi3D`;
         button3D.src= `https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btn3D.png`;
         button3D.classList.add(`btnMudi3D`);
-        button3D.addEventListener('click',createModal,false)
+        button3D.addEventListener('click',()=>{createModal(skuNumber)},false)
 
     /** Add tooltip and 3D buttton to "container" */
     container.appendChild(tooltip);
@@ -69,7 +69,7 @@ function createButon(father){
 
 };
 
-function createModal(){
+function createModal(skuNumber){
 
     /** We create a shell for the MUDI modal */
     const 
@@ -80,9 +80,15 @@ function createModal(){
         <div class="iframeMudi3D">
             <button class="closeModalMudi">X</button>
             <iframe class="modelMudi" src="${dataServer.URL_WEB}"></iframe>
-            <img id='btnMudiAR' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btnAR.png"/>
+            <div class="containerBtnsActions">
+                <img id='btnMudiAR' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn.webp"/>
+            </div>
         </div>
     `;
+    
+        /** Verificamos si el producto es un aire acondicionado y añadimos la unidad externa  */
+        ( skuNumber.includes('MMT') || skuNumber.includes('MMI') )
+        &&  modalMudi.querySelector('.containerBtnsActions').appendChild(addExternalDrive(skuNumber))  
 
     /** We close the MUDI modal*/
     modalMudi.querySelector(`.closeModalMudi`).addEventListener('click',()=>{
@@ -99,9 +105,48 @@ function createModal(){
 
 };
 
+function addExternalDrive (skuNumber){
+    
+    /** Model 3d model3D */
+    let model3D, urlExternalDrive;
+
+    /** Verificamos que unidad externa es */
+    skuNumber.includes('MMT') 
+    ? urlExternalDrive = "https://viewer.mudi.com.co/v1/web/?id=105&sku=UE_Azul" 
+    : urlExternalDrive ="https://viewer.mudi.com.co/v1/web/?id=105&sku=UE_Dorada";
+
+    /** Buttones */
+    const 
+    button = document.createElement('IMG');
+    button.classList.add('external_drive');
+    button.id="externalDrive";
+    button.src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOn.png"
+
+    /** Añadimos la funcionalidad */
+    button.addEventListener('click',()=>{
+        
+        !model3D 
+        ? (
+            document.body.querySelector('.modelMudi').src=urlExternalDrive,
+            button.src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOff.png"
+          ) 
+        : (
+            document.body.querySelector('.modelMudi').src=dataServer.URL_WEB,
+            button.src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOn.png"
+           );
+
+        model3D = !model3D;
+    });
+
+    return button;
+}
+
 function initARDESK(){
 
+    document.body.querySelector('#btnMudiAR').src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROff.png";
+
     if(document.body.querySelector('#containerQR')) {
+        document.body.querySelector('#btnMudiAR').src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn.png"
         document.body.querySelector('#containerQR').remove();
         return
     };
@@ -165,7 +210,7 @@ async function mudiExperience({skuNumber,fatherContainer}){
     };
 
     createStyles();
-    createButon( fatherContainer ); 
+    createButon( fatherContainer , skuNumber); 
     dataLayer.push({
         event: "visualizacionMudi",
         valorMudi: "1"
@@ -173,7 +218,8 @@ async function mudiExperience({skuNumber,fatherContainer}){
 };
 
 mudiExperience({
-    skuNumber:document.body.querySelector('.code').innerHTML+"_MabePeru",
+    // skuNumber:document.body.querySelector('.code').innerHTML+"_MabePeru",
+    skuNumber:"MMT12CDBWCCC8_MabePeru",
     fatherContainer: document.body.querySelectorAll(`.image-gallery`)
 });
 
