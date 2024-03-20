@@ -81,7 +81,7 @@ function createModal(skuNumber){
             <button class="closeModalMudi">X</button>
             <iframe class="modelMudi" src="${dataServer.URL_WEB}"></iframe>
             <div class="containerBtnsActions">
-                <img id='btnMudiAR' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn.png"/>
+                <img id='btnMudiAR' class="btnMudiAR" src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn2.png"/>
             </div>
         </div>
     `;
@@ -146,7 +146,7 @@ function initARDESK(){
     document.body.querySelector('#btnMudiAR').src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROff.png";
 
     if(document.body.querySelector('#containerQR')) {
-        document.body.querySelector('#btnMudiAR').src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn.png"
+        document.body.querySelector('#btnMudiAR').src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn2.png"
         document.body.querySelector('#containerQR').remove();
         return
     };
