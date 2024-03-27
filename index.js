@@ -57,6 +57,7 @@ function createButon(father,skuNumber){
         button3D.id = `btnMudi3D`;
         button3D.src= `https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btn3D.png`;
         button3D.classList.add(`btnMudi3D`);
+        button3D.classList.add(`animate-Shaking`);
         button3D.addEventListener('click',()=>{createModal(skuNumber)},false)
 
     /** Add tooltip and 3D buttton to "container" */
