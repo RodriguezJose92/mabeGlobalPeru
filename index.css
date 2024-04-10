@@ -127,9 +127,9 @@
 
 .containerQRMudi {
     position: absolute;
-    top: 0;
+    top: 30px;
     transform: scale(0.8);
-    left: -3px;
+    right: -15px;
     display: flex;
     flex-direction: column;
     background-color: #007297;
@@ -138,7 +138,7 @@
     align-items: center;
     border-radius: 20px;
     z-index: 0;
-    color: white;
+    scale: .85;
 }
 
 .mudiQR {
@@ -190,9 +190,8 @@
 
     .containerQRMudi {
         position: absolute;
-        top: 0;
-        transform: scale(0.7);
-        left: -3px;
+        top: 30px;
+        right: -15px;
         display: flex;
         flex-direction: column;
         background-color: #007297;
@@ -202,6 +201,7 @@
         border-radius: 20px;
         z-index: 0;
         color: white;
+        scale: .85;
     }
 }
 
@@ -211,7 +211,7 @@
         position: absolute;
         top: 0;
         transform: scale(0.6);
-        left: -3px;
+        right: -30px;
         display: flex;
         flex-direction: column;
         background-color: #007297;
@@ -221,6 +221,7 @@
         border-radius: 20px;
         z-index: 0;
         color: white;
+        scale: .75;
     }
 }
 
