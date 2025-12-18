@@ -1,83 +1,124 @@
 /** Server response */
+const productInteractives = [
+  "RMA305FWPC",
+  "RMP415GPG",
+  "HMM07PBN",
+  "MSD480LPRPS0",
+  "CMP3020FN1",
+  "RMF04PRX0",
+  "LMA72200WDBB2",
+  "RMA255FYPG",
+  "RMP415ZPC",
+  "CMP6040FX1",
+  "CMP6060FX1",
+  "CMP7670FX0",
+  "CMP6085FX1",
+  "CMP5545FX0",
+  "LMA8120WDGBB0",
+  "LMA6120WDGBB0",
+  "HMM11PNPO",
+  "HM6028EYAI0",
+  "PM6045GV0",
+  "CMP7628FX0",
+  "EMP5120GP2",
+  "RMU202PXPRS1",
+  "CMP6010FG1",
+  "CMP7625FX0",
+  "CMP6010FN0",
+  "CMP7640FX0",
+  "CHM300PB2",
+  "HMM09PNJ",
+  "CMP6030FX1",
+  "LMA4120WDGBB0",
+  "CMP6020FG1",
+  "RMA300FBPG1",
+];
+
 let dataServerMudi;
 
-async function conectServer(skuNumber){
+async function conectServer(skuNumber) {
+  const myBody = {
+    skus: [skuNumber],
+  };
 
-    const myBody = {
-        "skus":[skuNumber]
-    };
+  try {
+    /** We make the request to the MUDI server */
+    const request = await fetch(
+      "https://mudiview.mudi.com.co:7443/product/getProductsUrl",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          tokenapi: "M5uS9qsjJdaY7kLmhABR",
+        },
+        body: JSON.stringify(myBody),
+      }
+    );
+    const response = await request.json();
+    dataServer = response.data[0];
+  } catch (error) {
+    console.error(`Mudi Error:\n${error}`);
+  }
 
-    try {
+  return dataServer;
+}
 
-        /** We make the request to the MUDI server */
-        const 
-        request = await fetch('https://mudiview.mudi.com.co:7443/product/getProductsUrl',{
-            method:'POST',
-            headers:{   "Content-type":"application/json",
-                        "tokenapi":"M5uS9qsjJdaY7kLmhABR"
-            },
-            body: JSON.stringify(myBody)
-        })
-        const 
-        response = await request.json();
-        dataServer=response.data[0];   
+function createStyles() {
+  const link = document.createElement("LINK");
+  link.setAttribute("rel", "stylesheet");
+  link.id = "stylesMudiGeneral";
+  link.href = `https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/index.css`; /* Pueden tomarlos de esta ruta */
 
-    } catch (error) {console.error(`Mudi Error:\n${error}`)}
-    
-    return dataServer;
-};
+  document.head.appendChild(link);
+}
 
-function createStyles(){
-    const link = document.createElement('LINK');
-    link.setAttribute('rel','stylesheet');
-    link.id="stylesMudiGeneral";
-    link.href=`https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/index.css`; /* Pueden tomarlos de esta ruta */
-   
-    document.head.appendChild(link)
-};
+function createButon(father, skuNumber) {
+  /** We create a container for the 3D button */
+  const container = document.createElement("DIV");
+  container.id = `containerBtnsMudi`;
+  container.classList.add(`ContainerBtnsMudi`);
 
-function createButon(father,skuNumber){
+  /* We create an informative poster */
+  const tooltip = document.createElement("P");
+  tooltip.id = `tooltipMudi`;
+  tooltip.classList.add(`mudiTooltip`);
+  tooltip.innerHTML = `<p class="paragraphMudi"><b class="newMudi">¡Nuevo!</b> Descubre como se ve este producto en <b>3D y realidad aumentada</b> en tu espacio</p>`;
 
-    /** We create a container for the 3D button */
-    const 
-    container       = document.createElement('DIV');
-    container.id    =`containerBtnsMudi`;
-    container.classList.add(`ContainerBtnsMudi`);
+  /** The 3D botton is an image */
+  const button3D = document.createElement("IMG");
+  button3D.id = `btnMudi3D`;
 
-        /* We create an informative poster */
-        const 
-        tooltip     = document.createElement('P');
-        tooltip.id  = `tooltipMudi` ;
-        tooltip.classList.add(`mudiTooltip`);
-        tooltip.innerHTML=`<p class="paragraphMudi"><b class="newMudi">¡Nuevo!</b> Descubre como se ve este producto en <b>3D y realidad aumentada</b> en tu espacio</p>`;
-    
-        /** The 3D botton is an image */
-        const 
-        button3D    = document.createElement('IMG');
-        button3D.id = `btnMudi3D`;
-        button3D.src= `https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/btn3D.png`;
-        button3D.classList.add(`btnMudi3D`);
-        button3D.classList.add(`animate-Shaking`);
-        button3D.addEventListener('click',()=>{createModal(skuNumber)},false)
+  if (productInteractives.includes(skuNumber)) {
+    button3D.src = `https://viewer.mudi.com.co/implementations/mabe/btnInteractivoMabe.png`;
+  } else {
+    button3D.src = `https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeColombia@latest/btn3D.png`;
+  }
 
-    /** Add tooltip and 3D buttton to "container" */
-    container.appendChild(tooltip);
-    container.appendChild(button3D);
+  button3D.classList.add(`btnMudi3D`);
+  button3D.classList.add(`animate-Shaking`);
+  button3D.addEventListener(
+    "click",
+    () => {
+      createModal(skuNumber);
+    },
+    false
+  );
 
-    /** Add container to DOM */
-    if(window.innerWidth>1000)father[0].appendChild(container);
-    else  father[1].appendChild(container);
+  /** Add tooltip and 3D buttton to "container" */
+  container.appendChild(tooltip);
+  container.appendChild(button3D);
 
-};
+  /** Add container to DOM */
+  if (window.innerWidth > 1000) father[0].appendChild(container);
+  else father[1].appendChild(container);
+}
 
-function createModal(skuNumber){
-
-    /** We create a shell for the MUDI modal */
-    const 
-    modalMudi = document.createElement('DIV');
-    modalMudi.id=`modalMudi`;
-    modalMudi.classList.add(`mudiModal`);
-    modalMudi.innerHTML=`
+function createModal(skuNumber) {
+  /** We create a shell for the MUDI modal */
+  const modalMudi = document.createElement("DIV");
+  modalMudi.id = `modalMudi`;
+  modalMudi.classList.add(`mudiModal`);
+  modalMudi.innerHTML = `
         <div class="iframeMudi3D">
             <button class="closeModalMudi">X</button>
             <iframe class="modelMudi" src="${dataServer.URL_WEB}"></iframe>
@@ -86,77 +127,76 @@ function createModal(skuNumber){
             </div>
         </div>
     `;
-    
-        /** Verificamos si el producto es un aire acondicionado y añadimos la unidad externa  */
-        ( skuNumber.includes('MMT') || skuNumber.includes('MMI') )
-        &&  modalMudi.querySelector('.containerBtnsActions').appendChild(addExternalDrive(skuNumber))  
 
-    /** We close the MUDI modal*/
-    modalMudi.querySelector(`.closeModalMudi`).addEventListener('click',()=>{
-        document.body.querySelector('#modalMudi').remove();
-    });
+  /** Verificamos si el producto es un aire acondicionado y añadimos la unidad externa  */
+  (skuNumber.includes("MMT") || skuNumber.includes("MMI")) &&
+    modalMudi
+      .querySelector(".containerBtnsActions")
+      .appendChild(addExternalDrive(skuNumber));
 
-    /** Init ARExperience */
-    modalMudi.querySelector(`#btnMudiAR`).addEventListener('click',()=>{
-        if(window.innerWidth>1000) initARDESK();
-        else window.open(`${dataServer.URL_AR}`,"_BLANK")
-    });
+  /** We close the MUDI modal*/
+  modalMudi.querySelector(`.closeModalMudi`).addEventListener("click", () => {
+    document.body.querySelector("#modalMudi").remove();
+  });
 
-    document.body.appendChild(modalMudi)
+  /** Init ARExperience */
+  modalMudi.querySelector(`#btnMudiAR`).addEventListener("click", () => {
+    if (window.innerWidth > 1000) initARDESK();
+    else window.open(`${dataServer.URL_AR}`, "_BLANK");
+  });
 
-};
-
-function addExternalDrive (skuNumber){
-    
-    /** Model 3d model3D */
-    let model3D, urlExternalDrive;
-
-    /** Verificamos que unidad externa es */
-    skuNumber.includes('MMT') 
-    ? urlExternalDrive = "https://viewer.mudi.com.co/v1/web/?id=105&sku=UE_Azul" 
-    : urlExternalDrive ="https://viewer.mudi.com.co/v1/web/?id=105&sku=UE_Dorada";
-
-    /** Buttones */
-    const 
-    button = document.createElement('IMG');
-    button.classList.add('external_drive');
-    button.id="externalDrive";
-    button.src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOn.png"
-
-    /** Añadimos la funcionalidad */
-    button.addEventListener('click',()=>{
-        
-        !model3D 
-        ? (
-            document.body.querySelector('.modelMudi').src=urlExternalDrive,
-            button.src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOff.png"
-          ) 
-        : (
-            document.body.querySelector('.modelMudi').src=dataServer.URL_WEB,
-            button.src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOn.png"
-           );
-
-        model3D = !model3D;
-    });
-
-    return button;
+  document.body.appendChild(modalMudi);
 }
 
-function initARDESK(){
+function addExternalDrive(skuNumber) {
+  /** Model 3d model3D */
+  let model3D, urlExternalDrive;
 
-    document.body.querySelector('#btnMudiAR').src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROff.png";
+  /** Verificamos que unidad externa es */
+  skuNumber.includes("MMT")
+    ? (urlExternalDrive =
+        "https://viewer.mudi.com.co/v1/web/?id=105&sku=UE_Azul")
+    : (urlExternalDrive =
+        "https://viewer.mudi.com.co/v1/web/?id=105&sku=UE_Dorada");
 
-    if(document.body.querySelector('#containerQR')) {
-        document.body.querySelector('#btnMudiAR').src="https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn2.png"
-        document.body.querySelector('#containerQR').remove();
-        return
-    };
+  /** Buttones */
+  const button = document.createElement("IMG");
+  button.classList.add("external_drive");
+  button.id = "externalDrive";
+  button.src =
+    "https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOn.png";
 
-    const 
-    modalMudi = document.createElement('DIV');
-    modalMudi.id=`containerQR`;
-    modalMudi.classList.add(`containerQRMudi`);
-    modalMudi.innerHTML=`
+  /** Añadimos la funcionalidad */
+  button.addEventListener("click", () => {
+    !model3D
+      ? ((document.body.querySelector(".modelMudi").src = urlExternalDrive),
+        (button.src =
+          "https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOff.png"))
+      : ((document.body.querySelector(".modelMudi").src = dataServer.URL_WEB),
+        (button.src =
+          "https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/btn3DOn.png"));
+
+    model3D = !model3D;
+  });
+
+  return button;
+}
+
+function initARDESK() {
+  document.body.querySelector("#btnMudiAR").src =
+    "https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROff.png";
+
+  if (document.body.querySelector("#containerQR")) {
+    document.body.querySelector("#btnMudiAR").src =
+      "https://cdn.jsdelivr.net/gh/RodriguezJose92/mabeGlobalPeru@latest/assets/AROn2.png";
+    document.body.querySelector("#containerQR").remove();
+    return;
+  }
+
+  const modalMudi = document.createElement("DIV");
+  modalMudi.id = `containerQR`;
+  modalMudi.classList.add(`containerQRMudi`);
+  modalMudi.innerHTML = `
         <img class="mudiQR" src="${dataServer.URL_QR}" >
 
         <div class="containerText">
@@ -197,29 +237,28 @@ function initARDESK(){
 
     `;
 
-    document.body.querySelector('.iframeMudi3D').appendChild(modalMudi)
-};
+  document.body.querySelector(".iframeMudi3D").appendChild(modalMudi);
+}
 
-async function mudiExperience({skuNumber,fatherContainer}){
+async function mudiExperience({ skuNumber, fatherContainer }) {
+  const dataServer = await conectServer(skuNumber);
 
-    const 
-    dataServer = await conectServer(skuNumber);
-    
-    if(!dataServer){
-        console.warn(`El SKU ${skuNumber} No posee experiencias de 3D y realidad aumentada`)
-        return;
-    };
+  if (!dataServer) {
+    console.warn(
+      `El SKU ${skuNumber} No posee experiencias de 3D y realidad aumentada`
+    );
+    return;
+  }
 
-    createStyles();
-    createButon( fatherContainer , skuNumber); 
-    dataLayer.push({
-        event: "visualizacionMudi",
-        valorMudi: "1"
-    });  
-};
+  createStyles();
+  createButon(fatherContainer, skuNumber);
+  dataLayer.push({
+    event: "visualizacionMudi",
+    valorMudi: "1",
+  });
+}
 
 mudiExperience({
-    skuNumber:document.body.querySelector('.code').innerHTML+"_MabePeru",
-    fatherContainer: document.body.querySelectorAll(`.image-gallery`)
+  skuNumber: document.body.querySelector(".code").innerHTML + "_MabePeru",
+  fatherContainer: document.body.querySelectorAll(`.image-gallery`),
 });
-

@@ -1,134 +1,188 @@
 .ContainerBtnsMudi {
-    width: max-content;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    right: 0;
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  right: 0;
 }
 
 .animate-Shaking {
-    animation-name: shaking;
-    animation-duration: 9s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-fill-mode: forwards
+  animation-name: shaking;
+  animation-duration: 9s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
 }
 
-
 #btnMudi3D {
-    width: 80px;
-    cursor: pointer;
-    -webkit-box-shadow: 10px 10px 33px -18px rgba(0, 0, 0, 0.58);
-    -moz-box-shadow: 10px 10px 33px -18px rgba(0, 0, 0, 0.58);
-    box-shadow: 10px 10px 33px -18px rgba(0, 0, 0, 0.58);
-    border-radius: 50px;
+  width: 90px;
+  cursor: pointer;
 }
 
 .mudiTooltip {
-    position: absolute;
-    top: -70%;
-    right: -60%;
-    width: 351px;
-    text-align: center;
-    background-color: #b5b5b5;
-    padding: 0px 20px;
-    border-radius: 50px;
-    margin: 0;
-    color: white;
-    transform: scale(0.8);
-
+  position: absolute;
+  top: -70%;
+  right: -60%;
+  width: 351px;
+  text-align: center;
+  background-color: #b5b5b5;
+  padding: 0px 20px;
+  border-radius: 50px;
+  margin: 0;
+  color: white;
+  transform: scale(0.8);
 }
 
 .mudiTooltip::after {
-    content: '_';
-    font-size: 10px;
-    position: absolute;
-    background-color: #b5b5b5;
-    color: #b5b5b5;
-    width: 12px;
-    bottom: -11px;
-    right: 15%;
-    border-bottom-right-radius: 20px;
+  content: "_";
+  font-size: 10px;
+  position: absolute;
+  background-color: #b5b5b5;
+  color: #b5b5b5;
+  width: 12px;
+  bottom: -11px;
+  right: 15%;
+  border-bottom-right-radius: 20px;
 }
 
 .paragraphMudi {
-    font-size: 15px;
-    margin: 2px;
-    line-height: 19px;
-    padding: 5px 0px;
+  font-size: 15px;
+  margin: 2px;
+  line-height: 19px;
+  padding: 5px 0px;
 }
 
 .newMudi {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .mudiModal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.366);
-    width: 100%;
-    height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.366);
+  width: 100%;
+  height: 100vh;
 }
 
 .iframeMudi3D {
-    width: 90%;
-    height: 90vh;
-    background-color: white;
-    border-radius: 10px;
-    position: relative;
+  width: 90%;
+  height: 90vh;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
 }
 
 .closeModalMudi {
-    position: absolute;
-    top: -2.5%;
-    right: -1%;
-    background-color: #007297;
-    margin: 8px 4px;
-    color: white;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 9px;
-    padding: 4px 10px;
+  position: absolute;
+  top: -2.5%;
+  right: -1%;
+  background-color: #007297;
+  margin: 8px 4px;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 9px;
+  padding: 4px 10px;
 }
 
 .modelMudi {
-    width: 100%;
-    height: 100%;
-    border: none;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 .containerBtnsActions {
-    position: absolute;
-    top: 5.5%;
-    right: 1%;
-    width: 210px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
+  position: absolute;
+  top: 5.5%;
+  right: 1%;
+  width: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
 .btnMudiAR {
-    width: 100%;
+  width: 100%;
 }
 
 .external_drive {
-    width: 100%;
+  width: 100%;
 }
 
 .containerQRMudi {
+  position: absolute;
+  top: 30px;
+  transform: scale(0.8);
+  right: -15px;
+  display: flex;
+  flex-direction: column;
+  background-color: #007297;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  z-index: 0;
+  color: white;
+  scale: 0.85;
+}
+
+.mudiQR {
+  width: 250px;
+  padding: 30px;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.containerText {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stepMudi {
+  width: 35px;
+}
+
+.titleContainer {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.titleContainer:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.hrTitle {
+  margin: 2px auto 10px auto;
+  border: none;
+  outline: none;
+  height: 2px;
+  width: 90%;
+  background-color: white;
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1699px) {
+  .containerQRMudi {
     position: absolute;
     top: 30px;
-    transform: scale(0.8);
     right: -15px;
     display: flex;
     flex-direction: column;
@@ -139,167 +193,100 @@
     border-radius: 20px;
     z-index: 0;
     color: white;
-    scale: .85;
+    scale: 0.85;
+  }
 }
 
-.mudiQR {
-    width: 250px;
-    padding: 30px;
-    background-color: white;
-    overflow: hidden;
-    border-radius: 20px;
-}
-
-.containerText {
+@media screen and (min-width: 1100px) and (max-width: 1399px) {
+  .containerQRMudi {
+    position: absolute;
+    top: 0;
+    transform: scale(0.75);
+    right: -30px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-}
-
-.stepMudi {
-    width: 35px;
-}
-
-.titleContainer {
-    display: flex;
-    gap: 5px;
-    justify-content: flex-start;
-    align-items: flex-end;
-}
-
-.titleContainer:first-child {
-    display: flex;
+    background-color: #007297;
+    padding: 20px;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    text-align: center;
-    margin-top: 10px;
+    border-radius: 20px;
+    z-index: 0;
+    color: white;
+  }
 }
 
-.hrTitle {
-    margin: 2px auto 10px auto;
-    border: none;
-    outline: none;
-    height: 2px;
+@media screen and (max-width: 500px) {
+  .iframeMudi3D {
     width: 90%;
-    background-color: white;
-}
+  }
 
+  #btnMudi3D {
+    width: 60px;
+  }
 
+  .ContainerBtnsMudi {
+    top: 0;
+  }
 
-@media screen and (min-width:1400px) and (max-width:1699px) {
+  .containerBtnsActions {
+    position: absolute;
+    width: 40%;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 7%;
+    gap: 10%;
+    right: 2%;
+  }
 
-    .containerQRMudi {
-        position: absolute;
-        top: 30px;
-        right: -15px;
-        display: flex;
-        flex-direction: column;
-        background-color: #007297;
-        padding: 20px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 20px;
-        z-index: 0;
-        color: white;
-        scale: .85;
-    }
-}
+  .btnMudiAR {
+    width: 100%;
+  }
 
-@media screen and (min-width:1100px) and (max-width:1399px) {
-
-    .containerQRMudi {
-        position: absolute;
-        top: 0;
-        transform: scale(0.75);
-        right: -30px;
-        display: flex;
-        flex-direction: column;
-        background-color: #007297;
-        padding: 20px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 20px;
-        z-index: 0;
-        color: white;
-
-    }
-}
-
-@media screen and (max-width:500px) {
-    .iframeMudi3D {
-        width: 90%;
-    }
-
-    #btnMudi3D{
-        width:60px
-    }
-
-    .ContainerBtnsMudi{
-        top:0    
-    }
-
-    .containerBtnsActions {
-        position: absolute;
-        width: 40%;
-        flex-direction: column;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        top: 7%;
-        gap: 10%;
-        right: 2%;
-    }
-
-    .btnMudiAR {
-        width: 100%;
-    }
-
-    .external_drive {
-        width: 100%;
-    }
+  .external_drive {
+    width: 100%;
+  }
 }
 
 .realidadaumentadaDet {
-    display: none;
+  display: none;
 }
 
 @keyframes shaking {
-    0% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
 
-    12.5% {
-        transform: scale(1.1);
-    }
+  12.5% {
+    transform: scale(1.1);
+  }
 
-    25% {
-        transform: scale(1);
-    }
+  25% {
+    transform: scale(1);
+  }
 
-    37.5% {
-        transform: scale(.9);
-    }
+  37.5% {
+    transform: scale(0.9);
+  }
 
-    50% {
-        transform: scale(1);
-    }
+  50% {
+    transform: scale(1);
+  }
 
-    62.5% {
-        transform: scale(1.1);
-    }
+  62.5% {
+    transform: scale(1.1);
+  }
 
-    75% {
-        transform: scale(1);
-    }
+  75% {
+    transform: scale(1);
+  }
 
-    87.5% {
-        transform: scale(.9);
-    }
+  87.5% {
+    transform: scale(0.9);
+  }
 
-    100% {
-        transform: scale(1);
-    }
-
-
+  100% {
+    transform: scale(1);
+  }
 }
